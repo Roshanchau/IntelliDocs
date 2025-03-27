@@ -26,10 +26,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(me
 
 # Configure Cloudinary
 cloudinary.config(
-    cloud_name="dyq7iqdyc",
-    api_key="775973687362869",
-    api_secret="wuPwai-7yG2hVXqFLgNvFR03iKc"
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),  
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET")
 )
+
 
 # Ensure required directories exist
 BASE_DIR = Path("user_content")

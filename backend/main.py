@@ -9,6 +9,7 @@ import hashlib
 import json
 import logging
 from typing import Dict, Any, Optional
+from dotenv import load_dotenv
 
 from pathlib import Path
 from langchain_community.vectorstores import FAISS
@@ -26,11 +27,13 @@ logger = logging.getLogger("imageExtraction")
 
 processor=CloudinaryDocumentProcessor()
 
+load_dotenv()
+
 # Configure Cloudinary
 cloudinary.config(
-    cloud_name="dyq7iqdyc",  
-    api_key="775973687362869",
-    api_secret="wuPwai-7yG2hVXqFLgNvFR03iKc"
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),  
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET")
 )
 
 
@@ -233,7 +236,6 @@ async def process_input(
 
 
         # Process the input based on the model type
-        # 🟢 TEXT RETRIEVAL (RAG)
         if model_type == "text_retrieval":
             ask_question(text_prompt)
             return JSONResponse(content={
